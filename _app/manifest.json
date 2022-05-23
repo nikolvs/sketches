@@ -1,45 +1,67 @@
 {
   ".svelte-kit/runtime/client/start.js": {
-    "file": "start-5f48d35b.js",
+    "file": "start-0b8fa071.js",
     "src": ".svelte-kit/runtime/client/start.js",
     "isEntry": true,
     "imports": [
-      "_vendor-f0095a1c.js"
+      "_index-fd235262.js",
+      "_preload-helper-0d36a8ca.js"
     ],
     "dynamicImports": [
       ".svelte-kit/runtime/components/layout.svelte",
       ".svelte-kit/runtime/components/error.svelte",
+      "src/routes/game-of-life.svelte",
       "src/routes/index.svelte"
     ]
   },
   ".svelte-kit/runtime/components/layout.svelte": {
-    "file": "layout.svelte-ddbe22e6.js",
+    "file": "layout.svelte-2c12fd02.js",
     "src": ".svelte-kit/runtime/components/layout.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_vendor-f0095a1c.js"
+      "_index-fd235262.js"
     ]
   },
   ".svelte-kit/runtime/components/error.svelte": {
-    "file": "error.svelte-60b5f229.js",
+    "file": "error.svelte-32008c19.js",
     "src": ".svelte-kit/runtime/components/error.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_vendor-f0095a1c.js"
+      "_index-fd235262.js"
+    ]
+  },
+  "src/routes/game-of-life.svelte": {
+    "file": "pages/game-of-life.svelte-8abc2abd.js",
+    "src": "src/routes/game-of-life.svelte",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_index-fd235262.js",
+      "_preload-helper-0d36a8ca.js"
+    ],
+    "dynamicImports": [
+      "_p5.min-21ab2ccd.js"
     ]
   },
   "src/routes/index.svelte": {
-    "file": "pages/index.svelte-76d219fd.js",
+    "file": "pages/index.svelte-8152e59c.js",
     "src": "src/routes/index.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_vendor-f0095a1c.js"
+      "_index-fd235262.js"
     ]
   },
-  "_vendor-f0095a1c.js": {
-    "file": "chunks/vendor-f0095a1c.js"
+  "_index-fd235262.js": {
+    "file": "chunks/index-fd235262.js"
+  },
+  "_preload-helper-0d36a8ca.js": {
+    "file": "chunks/preload-helper-0d36a8ca.js"
+  },
+  "_p5.min-21ab2ccd.js": {
+    "file": "chunks/p5.min-21ab2ccd.js",
+    "isDynamicEntry": true
   }
 }
