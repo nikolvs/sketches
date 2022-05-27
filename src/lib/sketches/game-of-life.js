@@ -9,9 +9,16 @@ const makeGrid = (cols, rows) => Array.from({ length: cols }, () => Array.from({
 
 export const makeSketch = (p5) => ({
   grid: null,
+
   cols: 0,
   rows: 0,
+  chaos: 20,
   resolution: 20,
+
+  colors: {
+    alive: [255, 50],
+    dead: [217, 67, 77, 50],
+  },
 
   setup({ canvasWidth, canvasHeight }) {
     p5.createCanvas(canvasWidth, canvasHeight);
@@ -31,11 +38,16 @@ export const makeSketch = (p5) => ({
   draw() {
     const nextGen = makeGrid(this.cols, this.rows);
 
+    p5.noStroke();
+
     for (let x = 0; x < this.cols; x++) {
       for (let y = 0; y < this.rows; y++) {
-        p5.stroke(217, 67, 77);
-        p5.fill(this.grid[x][y] ? [255, 50] : [217, 67, 77, 50]);
-        p5.square(x * this.resolution, y * this.resolution, this.resolution);
+        p5.fill(this.grid[x][y] ? this.colors.alive : this.colors.dead);
+        p5.square(
+          x * this.resolution - p5.floor(p5.random(this.chaos)),
+          y * this.resolution - p5.floor(p5.random(this.chaos)),
+          this.resolution
+        );
 
         const neighbors = this.countNeighbors(x, y);
         const alive = this.grid[x][y] === 1;
