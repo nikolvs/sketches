@@ -16,7 +16,7 @@ export const makeSketch = (p5) => ({
   resolution: 20,
 
   colors: {
-    alive: [255, 50],
+    alive: [0, 50],
     dead: [217, 67, 77, 50],
   },
 
