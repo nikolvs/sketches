@@ -22,7 +22,7 @@ export const makeSketch = (p5) => ({
 
   setup({ canvasWidth, canvasHeight }) {
     p5.createCanvas(canvasWidth, canvasHeight);
-    p5.background(255);
+    p5.background(0);
 
     this.cols = p5.width / this.resolution;
     this.rows = p5.height / this.resolution;
