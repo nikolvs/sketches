@@ -1,6 +1,6 @@
 {
   ".svelte-kit/runtime/client/start.js": {
-    "file": "start-349f6eb4.js",
+    "file": "start-93dcf195.js",
     "src": ".svelte-kit/runtime/client/start.js",
     "isEntry": true,
     "imports": [
@@ -33,7 +33,7 @@
     ]
   },
   "src/routes/game-of-life.svelte": {
-    "file": "pages/game-of-life.svelte-1e4eaedd.js",
+    "file": "pages/game-of-life.svelte-0a8e4886.js",
     "src": "src/routes/game-of-life.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
