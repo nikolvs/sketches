@@ -9,8 +9,8 @@ const makeGrid = (cols, rows) => Array.from({ length: cols }, () => Array.from({
 
 export const makeSketch = (p5) => ({
   grid: null,
-  cols: null,
-  rows: null,
+  cols: 0,
+  rows: 0,
   resolution: 20,
 
   setup({ canvasWidth, canvasHeight }) {
@@ -29,17 +29,14 @@ export const makeSketch = (p5) => ({
   },
 
   draw() {
+    const nextGen = makeGrid(this.cols, this.rows);
+
     for (let x = 0; x < this.cols; x++) {
       for (let y = 0; y < this.rows; y++) {
         p5.stroke(217, 67, 77);
         p5.fill(this.grid[x][y] ? [255, 50] : [217, 67, 77, 50]);
         p5.square(x * this.resolution, y * this.resolution, this.resolution);
-      }
-    }
 
-    const nextGen = makeGrid(this.cols, this.rows);
-    for (let x = 0; x < this.cols; x++) {
-      for (let y = 0; y < this.rows; y++) {
         const neighbors = this.countNeighbors(x, y);
         const alive = this.grid[x][y] === 1;
 
