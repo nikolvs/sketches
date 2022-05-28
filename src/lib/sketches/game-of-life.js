@@ -12,20 +12,24 @@ export const makeSketch = (p5) => ({
 
   cols: 0,
   rows: 0,
-  chaos: 20,
-  resolution: 20,
+  resolution: 40,
 
   colors: {
-    alive: [0, 50],
-    dead: [217, 67, 77, 50],
+    alive: [240, 70],
+    dead: [217, 67, 77, 10],
+  },
+
+  chaos: {
+    alive: 10,
+    dead: 40,
   },
 
   setup({ canvasWidth, canvasHeight }) {
     p5.createCanvas(canvasWidth, canvasHeight);
-    p5.background(0);
+    p5.background(240);
 
-    this.cols = p5.width / this.resolution;
-    this.rows = p5.height / this.resolution;
+    this.cols = p5.ceil(p5.width / this.resolution);
+    this.rows = p5.ceil(p5.height / this.resolution);
     this.grid = makeGrid(this.cols, this.rows);
 
     for (let x = 0; x < this.cols; x++) {
@@ -42,27 +46,45 @@ export const makeSketch = (p5) => ({
 
     for (let x = 0; x < this.cols; x++) {
       for (let y = 0; y < this.rows; y++) {
-        p5.fill(this.grid[x][y] ? this.colors.alive : this.colors.dead);
-        p5.square(
-          x * this.resolution - p5.floor(p5.random(this.chaos)),
-          y * this.resolution - p5.floor(p5.random(this.chaos)),
-          this.resolution
-        );
-
+        const alive = this.grid[x][y];
         const neighbors = this.countNeighbors(x, y);
-        const alive = this.grid[x][y] === 1;
+
+        alive ? this.drawAliveCell(x, y) : this.drawDeadCell(x, y);
 
         if (!alive && neighbors === 3) {
           nextGen[x][y] = 1;
         } else if (alive && (neighbors < 2 || neighbors > 3)) {
           nextGen[x][y] = 0;
         } else {
-          nextGen[x][y] = this.grid[x][y];
+          nextGen[x][y] = alive;
         }
+
+        this.colors.dead[0] = p5.floor(p5.random(135, 255));
       }
     }
 
     this.grid = nextGen;
+  },
+
+  drawAliveCell(x, y) {
+    p5.fill(this.colors.alive);
+    p5.square(
+      x * this.resolution - p5.floor(p5.random(this.chaos.alive)),
+      y * this.resolution - p5.floor(p5.random(this.chaos.alive)),
+      this.resolution
+    );
+  },
+
+  drawDeadCell(x, y) {
+    const circleX = x * this.resolution + this.resolution / 2;
+    const circleY = y * this.resolution + this.resolution / 2;
+
+    p5.fill(this.colors.dead);
+    p5.circle(
+      circleX + p5.floor(p5.random(this.chaos.dead)) * (p5.random([0, 1]) ? -1 : 1),
+      circleY + p5.floor(p5.random(this.chaos.dead)) * (p5.random([0, 1]) ? -1 : 1),
+      this.resolution
+    );
   },
 
   countNeighbors(x, y) {
