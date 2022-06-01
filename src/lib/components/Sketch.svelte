@@ -6,14 +6,14 @@
   export let makeSketch;
 
   const sketch = (p5) => {
-    const canvas = makeSketch(p5);
+    const canvas = makeSketch({ p5, config });
 
     p5.setup = () => {
-      canvas.setup(config);
+      canvas.$setup();
     };
 
     p5.draw = () => {
-      canvas.draw(config);
+      canvas.$draw();
     };
   };
 </script>

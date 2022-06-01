@@ -1,3 +1,5 @@
+import sketch from '$lib/sketch';
+
 /**
  * Creates a 2D array.
  *
@@ -7,7 +9,7 @@
  */
 const makeGrid = (cols, rows) => Array.from({ length: cols }, () => Array.from({ length: rows }));
 
-export const makeSketch = (p5) => ({
+export const makeSketch = sketch((p5) => ({
   grid: null,
 
   cols: 0,
@@ -24,8 +26,7 @@ export const makeSketch = (p5) => ({
     dead: 40,
   },
 
-  setup({ canvasWidth, canvasHeight }) {
-    p5.createCanvas(canvasWidth, canvasHeight);
+  setup() {
     p5.background(240);
 
     this.cols = p5.ceil(p5.width / this.resolution);
@@ -101,4 +102,4 @@ export const makeSketch = (p5) => ({
     sum -= this.grid[x][y];
     return sum;
   },
-});
+}));
