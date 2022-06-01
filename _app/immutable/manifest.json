@@ -1,10 +1,10 @@
 {
   ".svelte-kit/runtime/client/start.js": {
-    "file": "start-d7237dcc.js",
+    "file": "start-1134a578.js",
     "src": ".svelte-kit/runtime/client/start.js",
     "isEntry": true,
     "imports": [
-      "_index-a8a211d8.js",
+      "_index-fd235262.js",
       "_preload-helper-7054b5b2.js"
     ],
     "dynamicImports": [
@@ -15,30 +15,30 @@
     ]
   },
   ".svelte-kit/runtime/components/layout.svelte": {
-    "file": "layout.svelte-e27e5fd2.js",
+    "file": "layout.svelte-2c12fd02.js",
     "src": ".svelte-kit/runtime/components/layout.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_index-a8a211d8.js"
+      "_index-fd235262.js"
     ]
   },
   ".svelte-kit/runtime/components/error.svelte": {
-    "file": "error.svelte-6b49ffba.js",
+    "file": "error.svelte-32008c19.js",
     "src": ".svelte-kit/runtime/components/error.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_index-a8a211d8.js"
+      "_index-fd235262.js"
     ]
   },
   "src/routes/game-of-life.svelte": {
-    "file": "pages/game-of-life.svelte-b3e11d6b.js",
+    "file": "pages/game-of-life.svelte-35704b7c.js",
     "src": "src/routes/game-of-life.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_index-a8a211d8.js",
+      "_index-fd235262.js",
       "_preload-helper-7054b5b2.js"
     ],
     "dynamicImports": [
@@ -46,16 +46,16 @@
     ]
   },
   "src/routes/index.svelte": {
-    "file": "pages/index.svelte-10720cc1.js",
+    "file": "pages/index.svelte-8152e59c.js",
     "src": "src/routes/index.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_index-a8a211d8.js"
+      "_index-fd235262.js"
     ]
   },
-  "_index-a8a211d8.js": {
-    "file": "chunks/index-a8a211d8.js"
+  "_index-fd235262.js": {
+    "file": "chunks/index-fd235262.js"
   },
   "_preload-helper-7054b5b2.js": {
     "file": "chunks/preload-helper-7054b5b2.js"
