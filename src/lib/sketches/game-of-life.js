@@ -10,6 +10,7 @@ import sketch from '$lib/sketch';
 const makeGrid = (cols, rows) => Array.from({ length: cols }, () => Array.from({ length: rows }));
 
 export const makeSketch = sketch((p5) => ({
+  fps: 60,
   grid: null,
 
   cols: 0,
@@ -27,7 +28,7 @@ export const makeSketch = sketch((p5) => ({
   },
 
   setup() {
-    p5.frameRate(24);
+    p5.frameRate(this.fps);
     p5.background(this.colors.dead.slice(0, -1));
 
     this.cols = p5.ceil(p5.width / this.size);
@@ -40,8 +41,16 @@ export const makeSketch = sketch((p5) => ({
       }
     }
 
-    // this.$recorder.setup({ name: 'game-of-life' });
-    // this.$recorder.start();
+    // if (this.$recorder) {
+    //   this.$recorder.setup({
+    //     name: 'game-of-life',
+    //     fps: this.fps,
+    //     end: 15,
+    //     imageFormat: 'image/jpeg',
+    //   });
+
+    //   this.$recorder.start();
+    // }
   },
 
   draw() {
