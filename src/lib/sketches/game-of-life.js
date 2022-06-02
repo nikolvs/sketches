@@ -14,7 +14,7 @@ export const makeSketch = sketch((p5) => ({
 
   cols: 0,
   rows: 0,
-  resolution: 40,
+  size: 40,
 
   colors: {
     alive: [240, 70],
@@ -27,10 +27,11 @@ export const makeSketch = sketch((p5) => ({
   },
 
   setup() {
-    p5.background(240);
+    p5.frameRate(24);
+    p5.background(this.colors.dead.slice(0, -1));
 
-    this.cols = p5.ceil(p5.width / this.resolution);
-    this.rows = p5.ceil(p5.height / this.resolution);
+    this.cols = p5.ceil(p5.width / this.size);
+    this.rows = p5.ceil(p5.height / this.size);
     this.grid = makeGrid(this.cols, this.rows);
 
     for (let x = 0; x < this.cols; x++) {
@@ -38,6 +39,9 @@ export const makeSketch = sketch((p5) => ({
         this.grid[x][y] = p5.floor(p5.random(2));
       }
     }
+
+    // this.$recorder.setup({ name: 'game-of-life' });
+    // this.$recorder.start();
   },
 
   draw() {
@@ -70,21 +74,21 @@ export const makeSketch = sketch((p5) => ({
   drawAliveCell(x, y) {
     p5.fill(this.colors.alive);
     p5.square(
-      x * this.resolution - p5.floor(p5.random(this.chaos.alive)),
-      y * this.resolution - p5.floor(p5.random(this.chaos.alive)),
-      this.resolution
+      x * this.size - p5.floor(p5.random(this.chaos.alive)),
+      y * this.size - p5.floor(p5.random(this.chaos.alive)),
+      this.size
     );
   },
 
   drawDeadCell(x, y) {
-    const circleX = x * this.resolution + this.resolution / 2;
-    const circleY = y * this.resolution + this.resolution / 2;
+    const circleX = x * this.size + this.size / 2;
+    const circleY = y * this.size + this.size / 2;
 
     p5.fill(this.colors.dead);
     p5.circle(
       circleX + p5.floor(p5.random(this.chaos.dead)) * (p5.random([0, 1]) ? -1 : 1),
       circleY + p5.floor(p5.random(this.chaos.dead)) * (p5.random([0, 1]) ? -1 : 1),
-      this.resolution
+      this.size
     );
   },
 
