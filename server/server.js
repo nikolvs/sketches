@@ -40,6 +40,9 @@ io.on('connection', (socket) => {
 
     ffmpeg(framePathPattern(info.name, imageExt))
       .inputFPS(info.fps)
+      .videoCodec('libx264')
+      .videoBitrate(4000)
+      .outputOptions(['-pix_fmt yuv420p'])
       .output(path.resolve(framesDir, filename))
       .on('progress', (progress) => {
         socket.emit('progress', progress);
