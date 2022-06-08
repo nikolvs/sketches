@@ -4,11 +4,11 @@ import { io } from 'socket.io-client';
 const makeRecorder = ({ p5, sketch }) => ({
   config: {
     name: String(Date.now()),
-    fps: 24,
+    fps: 30,
     start: 0,
     end: 30,
     videoFormat: 'video/mp4',
-    imageFormat: 'image/png',
+    imageFormat: 'image/jpeg',
     imageQuality: 1.0,
   },
 
