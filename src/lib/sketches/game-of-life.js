@@ -18,13 +18,24 @@ export const makeSketch = sketch((p5) => ({
   size: 40,
 
   colors: {
-    alive: [230, 154, 141, 70],
-    dead: [95, 75, 139, 20],
+    alive: [166, 116, 151, 70],
+    dead: [146, 166, 116, 20],
+  },
+
+  deadColorRange: {
+    range: 15,
+    channel: 0,
+    values: [],
   },
 
   chaos: {
-    alive: 20,
-    dead: 40,
+    alive: 10,
+    dead: 10,
+  },
+
+  padding: {
+    x: 4,
+    y: 2,
   },
 
   setup() {
@@ -40,6 +51,8 @@ export const makeSketch = sketch((p5) => ({
         this.grid[x][y] = p5.floor(p5.random(2));
       }
     }
+
+    this.setDeadColorRange();
 
     // if (this.$recorder) {
     //   this.$recorder.setup({
@@ -72,7 +85,8 @@ export const makeSketch = sketch((p5) => ({
           nextGen[x][y] = alive;
         }
 
-        this.colors.dead[0] = p5.floor(p5.random(55, 155));
+        const { values, channel } = this.deadColorRange;
+        this.colors.dead[channel] = p5.floor(p5.random(...values));
       }
     }
 
@@ -80,7 +94,7 @@ export const makeSketch = sketch((p5) => ({
   },
 
   drawAliveCell(x, y) {
-    p5.fill(this.colors.alive);
+    p5.fill(this.isPadding(x, y) ? this.negativeColor(this.colors.alive) : this.colors.alive);
     p5.square(
       x * this.size - p5.floor(p5.random(this.chaos.alive)),
       y * this.size - p5.floor(p5.random(this.chaos.alive)),
@@ -89,13 +103,10 @@ export const makeSketch = sketch((p5) => ({
   },
 
   drawDeadCell(x, y) {
-    const circleX = x * this.size + this.size / 2;
-    const circleY = y * this.size + this.size / 2;
-
-    p5.fill(this.colors.dead);
-    p5.circle(
-      circleX + p5.floor(p5.random(this.chaos.dead)) * (p5.random([0, 1]) ? -1 : 1),
-      circleY + p5.floor(p5.random(this.chaos.dead)) * (p5.random([0, 1]) ? -1 : 1),
+    p5.fill(this.isPadding(x, y) ? this.negativeColor(this.colors.dead) : this.colors.dead);
+    p5.square(
+      x * this.size - p5.floor(p5.random(this.chaos.dead)),
+      y * this.size - p5.floor(p5.random(this.chaos.dead)),
       this.size
     );
   },
@@ -113,5 +124,33 @@ export const makeSketch = sketch((p5) => ({
 
     sum -= this.grid[x][y];
     return sum;
+  },
+
+  isPadding(x, y) {
+    return (
+      x <= this.padding.x - 1 ||
+      y <= this.padding.y - 1 ||
+      this.cols - x <= this.padding.x ||
+      this.rows - y <= this.padding.y
+    );
+  },
+
+  negativeColor(color) {
+    return color.map((val, i) => (color.length === 1 || color.length - 1 !== i ? 255 - val : val));
+  },
+
+  setDeadColorRange() {
+    const color = this.colors.dead.length <= 1 ? this.colors.dead : this.colors.dead.slice(0, -1);
+    const channel = color.indexOf(p5.max(color));
+    const { range } = this.deadColorRange;
+
+    this.deadColorRange = {
+      ...this.deadColorRange,
+      channel,
+      values: [
+        p5.max(this.colors.dead[channel] - range, 0),
+        p5.min(this.colors.dead[channel] + range, 255),
+      ],
+    };
   },
 }));
