@@ -1,6 +1,6 @@
 {
   ".svelte-kit/runtime/client/start.js": {
-    "file": "start-c66b5ba8.js",
+    "file": "start-7becb419.js",
     "src": ".svelte-kit/runtime/client/start.js",
     "isEntry": true,
     "imports": [
@@ -15,7 +15,7 @@
     ]
   },
   "src/routes/__layout.svelte": {
-    "file": "pages/__layout.svelte-2ef69df7.js",
+    "file": "pages/__layout.svelte-9b3800bd.js",
     "src": "src/routes/__layout.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
@@ -23,7 +23,7 @@
       "_index-fd235262.js"
     ],
     "css": [
-      "assets/pages/__layout.svelte-f8a76590.css"
+      "assets/pages/__layout.svelte-a15b1b2a.css"
     ]
   },
   ".svelte-kit/runtime/components/error.svelte": {
@@ -36,7 +36,7 @@
     ]
   },
   "src/routes/game-of-life.svelte": {
-    "file": "pages/game-of-life.svelte-00459b03.js",
+    "file": "pages/game-of-life.svelte-ca773244.js",
     "src": "src/routes/game-of-life.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
