@@ -17,30 +17,54 @@ export const makeSketch = sketch((p5) => ({
   rows: 0,
   size: 40,
 
-  colors: {
-    alive: [166, 116, 151, 70],
-    dead: [146, 166, 116, 20],
-  },
-
-  deadColorRange: {
-    range: 15,
-    channel: 0,
-    values: [],
-  },
-
-  chaos: {
-    alive: 10,
-    dead: 10,
-  },
-
   padding: {
-    x: 4,
-    y: 2,
+    x: 2,
+    y: 6,
+  },
+
+  aliveCell: {
+    mainArea: {
+      leak: 3,
+      color: [230, 154, 141, 130],
+      colorVariation: {
+        value: 25,
+        channel: 1,
+      },
+    },
+
+    paddingArea: {
+      leak: 3,
+      color: [255, 255, 255, 130],
+      colorVariation: {
+        value: 70,
+        channel: 1,
+      },
+    },
+  },
+
+  deadCell: {
+    mainArea: {
+      leak: 5,
+      color: [95, 75, 139, 10],
+      colorVariation: {
+        value: 40,
+        channel: 1,
+      },
+    },
+
+    paddingArea: {
+      leak: 7,
+      color: [10, 10, 10, 80],
+      colorVariation: {
+        value: 20,
+        channel: 2,
+      },
+    },
   },
 
   setup() {
     p5.frameRate(this.fps);
-    p5.background(this.colors.dead.slice(0, -1));
+    p5.background(this.deadCell.mainArea.color.slice(0, -1));
 
     this.cols = p5.ceil(p5.width / this.size);
     this.rows = p5.ceil(p5.height / this.size);
@@ -51,8 +75,6 @@ export const makeSketch = sketch((p5) => ({
         this.grid[x][y] = p5.floor(p5.random(2));
       }
     }
-
-    this.setDeadColorRange();
 
     // if (this.$recorder) {
     //   this.$recorder.setup({
@@ -67,6 +89,7 @@ export const makeSketch = sketch((p5) => ({
 
   draw() {
     const nextGen = makeGrid(this.cols, this.rows);
+    const aliveCells = [];
 
     p5.noStroke();
 
@@ -75,7 +98,7 @@ export const makeSketch = sketch((p5) => ({
         const alive = this.grid[x][y];
         const neighbors = this.countNeighbors(x, y);
 
-        alive ? this.drawAliveCell(x, y) : this.drawDeadCell(x, y);
+        alive ? aliveCells.push([x, y]) : this.drawDeadCell(x, y);
 
         if (!alive && neighbors === 3) {
           nextGen[x][y] = 1;
@@ -84,29 +107,38 @@ export const makeSketch = sketch((p5) => ({
         } else {
           nextGen[x][y] = alive;
         }
-
-        const { values, channel } = this.deadColorRange;
-        this.colors.dead[channel] = p5.floor(p5.random(...values));
       }
+    }
+
+    for (const [x, y] of aliveCells) {
+      this.drawAliveCell(x, y);
     }
 
     this.grid = nextGen;
   },
 
   drawAliveCell(x, y) {
-    p5.fill(this.isPadding(x, y) ? this.negativeColor(this.colors.alive) : this.colors.alive);
+    const { leak, color, colorVariation } = this.isPadding(x, y)
+      ? this.aliveCell.paddingArea
+      : this.aliveCell.mainArea;
+
+    p5.fill(this.nearColor(color, colorVariation.value, colorVariation.channel));
     p5.square(
-      x * this.size - p5.floor(p5.random(this.chaos.alive)),
-      y * this.size - p5.floor(p5.random(this.chaos.alive)),
+      x * this.size + p5.floor(p5.random(leak)) * (p5.floor(p5.random(2)) ? -1 : 1),
+      y * this.size + p5.floor(p5.random(leak)) * (p5.floor(p5.random(2)) ? -1 : 1),
       this.size
     );
   },
 
   drawDeadCell(x, y) {
-    p5.fill(this.isPadding(x, y) ? this.negativeColor(this.colors.dead) : this.colors.dead);
+    const { leak, color, colorVariation } = this.isPadding(x, y)
+      ? this.deadCell.paddingArea
+      : this.deadCell.mainArea;
+
+    p5.fill(this.nearColor(color, colorVariation.value, colorVariation.channel));
     p5.square(
-      x * this.size - p5.floor(p5.random(this.chaos.dead)),
-      y * this.size - p5.floor(p5.random(this.chaos.dead)),
+      x * this.size + p5.floor(p5.random(leak)) * (p5.floor(p5.random(2)) ? -1 : 1),
+      y * this.size + p5.floor(p5.random(leak)) * (p5.floor(p5.random(2)) ? -1 : 1),
       this.size
     );
   },
@@ -135,22 +167,12 @@ export const makeSketch = sketch((p5) => ({
     );
   },
 
-  negativeColor(color) {
-    return color.map((val, i) => (color.length === 1 || color.length - 1 !== i ? 255 - val : val));
-  },
+  nearColor(color, variation, channel) {
+    const nearColor = [...color];
+    nearColor[channel] = p5.floor(
+      p5.random(p5.max(color[channel] + variation, 0), p5.min(color[channel] - variation, 255))
+    );
 
-  setDeadColorRange() {
-    const color = this.colors.dead.length <= 1 ? this.colors.dead : this.colors.dead.slice(0, -1);
-    const channel = color.indexOf(p5.max(color));
-    const { range } = this.deadColorRange;
-
-    this.deadColorRange = {
-      ...this.deadColorRange,
-      channel,
-      values: [
-        p5.max(this.colors.dead[channel] - range, 0),
-        p5.min(this.colors.dead[channel] + range, 255),
-      ],
-    };
+    return nearColor;
   },
 }));
