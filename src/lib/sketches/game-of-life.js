@@ -18,13 +18,13 @@ export const makeSketch = sketch((p5) => ({
   size: 40,
 
   padding: {
-    x: 2,
-    y: 6,
+    x: 1,
+    y: 8,
   },
 
   aliveCell: {
     mainArea: {
-      leak: 3,
+      leak: 7,
       color: [230, 154, 141, 130],
       colorVariation: {
         value: 25,
@@ -33,10 +33,10 @@ export const makeSketch = sketch((p5) => ({
     },
 
     paddingArea: {
-      leak: 3,
-      color: [255, 255, 255, 130],
+      leak: 7,
+      color: [223, 101, 137, 130],
       colorVariation: {
-        value: 70,
+        value: 25,
         channel: 1,
       },
     },
@@ -44,19 +44,19 @@ export const makeSketch = sketch((p5) => ({
 
   deadCell: {
     mainArea: {
-      leak: 5,
-      color: [95, 75, 139, 10],
+      leak: 7,
+      color: [58, 45, 84, 10],
       colorVariation: {
-        value: 40,
+        value: 45,
         channel: 1,
       },
     },
 
     paddingArea: {
       leak: 7,
-      color: [10, 10, 10, 80],
+      color: [35, 10, 48, 10],
       colorVariation: {
-        value: 20,
+        value: 30,
         channel: 2,
       },
     },
@@ -80,7 +80,7 @@ export const makeSketch = sketch((p5) => ({
     //   this.$recorder.setup({
     //     name: 'game-of-life',
     //     fps: this.fps,
-    //     end: 30,
+    //     end: 60,
     //   });
 
     //   this.$recorder.start();
