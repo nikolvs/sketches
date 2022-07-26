@@ -1,6 +1,6 @@
 {
   ".svelte-kit/runtime/client/start.js": {
-    "file": "_app/immutable/start-8d55136b.js",
+    "file": "_app/immutable/start-7424826d.js",
     "src": ".svelte-kit/runtime/client/start.js",
     "isEntry": true,
     "imports": [
@@ -36,7 +36,7 @@
     ]
   },
   "src/routes/game-of-life.svelte": {
-    "file": "_app/immutable/pages/game-of-life.svelte-c5d33f46.js",
+    "file": "_app/immutable/pages/game-of-life.svelte-e764693b.js",
     "src": "src/routes/game-of-life.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
