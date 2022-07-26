@@ -3,8 +3,8 @@
   import { makeSketch } from '$lib/sketches/game-of-life';
 
   const config = {
-    canvasWidth: 1080,
-    canvasHeight: 1920,
+    canvasWidth: 2160,
+    canvasHeight: 3840,
   };
 </script>
 

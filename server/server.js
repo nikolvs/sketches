@@ -39,9 +39,10 @@ io.on('connection', (socket) => {
     const filename = `${info.name}.${videoExt}`;
 
     ffmpeg(framePathPattern(info.name, imageExt))
+      .size('1080x1920')
       .inputFPS(info.fps)
       .videoCodec('libx264')
-      .videoBitrate(4000)
+      .videoBitrate(4200)
       .outputOptions(['-pix_fmt yuv420p'])
       .output(path.resolve(framesDir, filename))
       .on('progress', (progress) => {

@@ -15,10 +15,10 @@ export const makeSketch = sketch((p5) => ({
 
   cols: 0,
   rows: 0,
-  size: 40,
+  size: 80,
 
   padding: {
-    x: 1,
+    x: 2,
     y: 8,
   },
 
@@ -44,7 +44,7 @@ export const makeSketch = sketch((p5) => ({
 
   deadCell: {
     mainArea: {
-      leak: 7,
+      leak: 14,
       color: [58, 45, 84, 10],
       colorVariation: {
         value: 45,
@@ -53,7 +53,7 @@ export const makeSketch = sketch((p5) => ({
     },
 
     paddingArea: {
-      leak: 7,
+      leak: 14,
       color: [35, 10, 48, 10],
       colorVariation: {
         value: 30,
