@@ -2,17 +2,17 @@
   "name": "sketches",
   "version": "0.0.1",
   "scripts": {
-    "dev": "svelte-kit dev",
-    "build": "svelte-kit build",
+    "dev": "vite dev",
+    "build": "vite build",
+    "preview": "vite preview",
     "package": "svelte-kit package",
-    "preview": "svelte-kit preview",
     "prepare": "svelte-kit sync",
     "lint": "prettier --ignore-path .gitignore --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
     "format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. ."
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "next",
-    "@sveltejs/adapter-static": "^1.0.0-next.29",
+    "@sveltejs/adapter-static": "1.0.0-next.38",
     "@sveltejs/kit": "next",
     "autoprefixer": "^10.4.7",
     "eslint": "^7.32.0",
@@ -23,7 +23,8 @@
     "prettier-plugin-svelte": "^2.5.0",
     "svelte": "^3.44.0",
     "svelte-preprocess": "^4.10.6",
-    "tailwindcss": "^3.0.24"
+    "tailwindcss": "^3.0.24",
+    "vite": "^3.0.3"
   },
   "type": "module",
   "dependencies": {
