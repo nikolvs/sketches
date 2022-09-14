@@ -15,7 +15,7 @@ export const makeSketch = sketch((p5) => ({
 
   cols: 0,
   rows: 0,
-  size: 80,
+  size: 40,
 
   padding: {
     x: 2,
@@ -24,8 +24,8 @@ export const makeSketch = sketch((p5) => ({
 
   aliveCell: {
     mainArea: {
-      leak: 7,
-      color: [230, 154, 141, 130],
+      leak: 5,
+      color: [230, 154, 141, 90],
       colorVariation: {
         value: 25,
         channel: 1,
@@ -33,8 +33,8 @@ export const makeSketch = sketch((p5) => ({
     },
 
     paddingArea: {
-      leak: 7,
-      color: [223, 101, 137, 130],
+      leak: 5,
+      color: [223, 101, 137, 90],
       colorVariation: {
         value: 25,
         channel: 1,
@@ -44,47 +44,59 @@ export const makeSketch = sketch((p5) => ({
 
   deadCell: {
     mainArea: {
-      leak: 14,
-      color: [58, 45, 84, 10],
+      leak: 1,
+      color: [161, 64, 104, 50],
       colorVariation: {
-        value: 45,
-        channel: 1,
+        value: 15,
+        channel: 0,
       },
     },
 
     paddingArea: {
-      leak: 14,
-      color: [35, 10, 48, 10],
+      leak: 7,
+      color: [35, 10, 48, 50],
       colorVariation: {
-        value: 30,
+        value: 15,
         channel: 2,
       },
     },
   },
 
-  setup() {
+  setup({ seed }) {
+    if (seed) {
+      const { size, grid } = this.decodeSeed(seed);
+
+      this.size = size;
+      this.grid = grid;
+    }
+
     p5.frameRate(this.fps);
     p5.background(this.deadCell.mainArea.color.slice(0, -1));
 
     this.cols = p5.ceil(p5.width / this.size);
     this.rows = p5.ceil(p5.height / this.size);
-    this.grid = makeGrid(this.cols, this.rows);
 
-    for (let x = 0; x < this.cols; x++) {
-      for (let y = 0; y < this.rows; y++) {
-        this.grid[x][y] = p5.floor(p5.random(2));
+    if (!this.grid) {
+      this.grid = makeGrid(this.cols, this.rows);
+
+      for (let x = 0; x < this.cols; x++) {
+        for (let y = 0; y < this.rows; y++) {
+          this.grid[x][y] = p5.floor(p5.random(2));
+        }
       }
+
+      console.log('seed:', this.generateSeed());
     }
 
-    // if (this.$recorder) {
-    //   this.$recorder.setup({
-    //     name: 'game-of-life',
-    //     fps: this.fps,
-    //     end: 60,
-    //   });
+    if (this.$recorder) {
+      this.$recorder.setup({
+        name: 'game-of-life',
+        fps: this.fps,
+        end: 37,
+      });
 
-    //   this.$recorder.start();
-    // }
+      this.$recorder.start();
+    }
   },
 
   draw() {
@@ -174,5 +186,19 @@ export const makeSketch = sketch((p5) => ({
     );
 
     return nearColor;
+  },
+
+  generateSeed() {
+    return `${this.size};${this.grid.map((x) => x.join('')).join('')}`;
+  },
+
+  decodeSeed(seed) {
+    const [size, grid] = seed.split(';');
+    const re = new RegExp(`.{1,${p5.ceil(p5.height / size)}}`, 'g');
+
+    return {
+      size,
+      grid: grid.match(re).map((x) => x.split('').map((y) => Number(y))),
+    };
   },
 }));

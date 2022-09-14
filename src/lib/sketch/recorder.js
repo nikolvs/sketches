@@ -1,6 +1,8 @@
 import { dev } from '$app/env';
 import { io } from 'socket.io-client';
 
+const sleep = (t) => new Promise((resolve) => setTimeout(resolve, t));
+
 const makeRecorder = ({ p5, sketch }) => ({
   config: {
     name: String(Date.now()),
@@ -27,9 +29,11 @@ const makeRecorder = ({ p5, sketch }) => ({
       this.progress = progress;
     });
 
-    this.socket.on('finished', (downloadUrl) => {
+    this.socket.on('finished', async (downloadUrl) => {
       this.status = 'finished';
       window.location.href = downloadUrl;
+
+      await sleep(10000);
     });
 
     this.record();
